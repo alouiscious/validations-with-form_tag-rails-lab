@@ -1,11 +1,27 @@
 <h2>Editing "<%= @author.name %>"</h2>
 <%= form_tag authors_path(@author), method: "patch" do %>
-  <div class="field">
+  <% if @author.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@author.errors.count, "error") %>
+      prohibited this author from being saved:
+    </h2>
+ 
+    <ul>
+    <% @author.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
+  <div class="field<%= ' field_with_errors' if @person.errors[:name].any? %>">
     <%= label_tag "name", "Name" %>
     <%= text_field_tag "name", @author.name %>
   </div>
 
-  <div class="field">
+  <div class="field<%= ' field_with_errors' if @person.errors[:email].any? %>">
     <%= label_tag "email", "email" %>
     <p>Must be blank".</p>
     <%= text_field_tag "email", @author.email %>
@@ -15,7 +31,7 @@
     </p>
   </div>
 
-  <div class="field">
+  <div class="field<%= ' field_with_errors' if @person.errors[:phone_number].any? %>">
     <%= label_tag "phone_number", "phone_number" %>
     <br />
     <%= text_area_tag "phone_number", @author.phone_number %>
