@@ -21,6 +21,7 @@ class AuthorsController < ApplicationController
     end
 
     def update
+      @author = Author.find(params[:id])
       if @author.update(author_params)
         redirect_to author_path(@author)
       else
@@ -28,10 +29,7 @@ class AuthorsController < ApplicationController
       end
     end
 
-    def author_params
-      params.require(:author).permit(:name, :email, :phone_number)
-      
-    end
+
   end
 
   private
